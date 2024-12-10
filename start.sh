@@ -14,12 +14,10 @@ export DUCKDB_HTTPSERVER_DEBUG=1
 # 在前台运行
 export DUCKDB_HTTPSERVER_FOREGROUND=1
 
-# 创建临时SQL文件
-cat > /app/duckdb-server.sql << EOF
+echo "HTTP server started on 0.0.0.0:9999"
+# 直接将 SQL 命令传递给 duckdb，而不是创建临时文件
+exec /app/duckdb "/data/database.duckdb" -c "
 INSTALL httpserver FROM community;
 LOAD httpserver;
-SELECT httpserve_start('0.0.0.0', 9999, '${AUTH}');
-EOF
+SELECT httpserve_start('0.0.0.0', 9999, '${AUTH}');" 
 
-echo "正在启动 DuckDB HTTP 服务器在端口 9999..."
-exec /app/duckdb "/data/database.duckdb" -init /app/duckdb-server.sql 
