@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # 使用环境变量或默认值
-PORT="${DUCKDB_PORT:-9999}"
-AUTH="${DUCKDB_AUTH:-user:pass}"
+PORT="${PORT:-9999}"
+AUTH="${AUTH:-user:pass}"
 
 # 创建临时SQL文件
 cat > /app/duckdb-server.sql << EOF
