@@ -2,12 +2,22 @@ version: '3.8'
 
 services:
   duckdb-server:
-    build: .
+    image: duckdb-server:1.1.3
+    container_name: duckdb-server
     ports:
-      - "${PORT:-9999}:${PORT:-9999}"
+      - "9999:9999"
     environment:
-      - PORT=${PORT:-9999}
-      - AUTH=${AUTH:-user:pass}
+      - AUTH="user:pass"
     volumes:
-      - ./data:/data
+      - duckdb-data:/data
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9999" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  duckdb-data:
+    name: duckdb-data

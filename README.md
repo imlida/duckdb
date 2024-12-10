@@ -25,10 +25,9 @@ docker run -d \
 
 ```bash
 docker run -d \
-  -p 8080:8080 \
+  -p 9999:9999 \
   -v /your/data/path:/data \
-  -e DUCKDB_PORT=8080 \
-  -e DUCKDB_AUTH=myuser:mypassword \
+  -e AUTH=myuser:mypassword \
   your-image-name
 ```
 
