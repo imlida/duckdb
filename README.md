@@ -35,8 +35,7 @@ docker run -d \
 
 | 环境变量 | 描述 | 默认值 |
 |----------|------|--------|
-| DUCKDB_PORT | HTTP 服务器监听端口 | 9999 |
-| DUCKDB_AUTH | 认证信息（格式：用户名:密码） | user:pass |
+| AUTH | 认证信息（格式：用户名:密码） | user:pass |
 
 ## 数据持久化
 
