@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  duckdb-server:
+    build: .
+    ports:
+      - "${PORT:-9999}:${PORT:-9999}"
+    environment:
+      - PORT=${PORT:-9999}
+      - AUTH=${AUTH:-user:pass}
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
