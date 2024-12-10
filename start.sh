@@ -9,14 +9,16 @@ AUTH="${AUTH:-user:pass}"
 # 信号处理
 trap 'echo "接收到终止信号，正在关闭服务器..."; exit 0' SIGTERM SIGINT
 
+# 启用调试日志
+export DUCKDB_HTTPSERVER_DEBUG=1
+# 在前台运行
+export DUCKDB_HTTPSERVER_FOREGROUND=1
+
 # 创建临时SQL文件
 cat > /app/duckdb-server.sql << EOF
 INSTALL httpserver FROM community;
 LOAD httpserver;
-CALL httpserve_start('0.0.0.0', 9999, '${AUTH}');
-
--- 保持服务器运行
-SELECT CASE WHEN 1=1 THEN NULL END FROM range(9999999999);
+SELECT httpserve_start('0.0.0.0', 9999, '${AUTH}');
 EOF
 
 echo "正在启动 DuckDB HTTP 服务器在端口 9999..."
