@@ -58,7 +58,7 @@ docker build -t your-image-name .
 服务启动后，可以通过 HTTP 接口访问数据库。例如：
 
 ```bash
-curl -u user:pass http://localhost:9999/query -d "SELECT 1"
+curl -X POST -d "LOAD chsql; SELECT version();" "http://user:pass@localhost:9999/"
 ```
 
 ## 注意事项

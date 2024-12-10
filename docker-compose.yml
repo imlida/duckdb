@@ -7,7 +7,7 @@ services:
     ports:
       - "9999:9999"
     environment:
-      - AUTH="user:pass"
+      - AUTH=${AUTH:-user:pass}
     volumes:
       - duckdb-data:/data
     restart: unless-stopped
